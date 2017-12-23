@@ -1,0 +1,55 @@
+<html>
+  <head>
+    <title>progress</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="index.css">
+    <script src='progress.js' type='text/javascript' ></script>
+    <script src='checkComponent.js' type='text/javascript' ></script>
+  </head>
+  <body class="center">
+    <div class="main center">
+      <div class="block">
+        <span class="label">Progress</span>
+        <div class="comp" id="comp"></div>
+      </div>
+      <div class="block">
+        <div class="content">
+          <div class="item">
+            <input id="value" class="field" />
+            <div class="buble no"></div>
+            <span>Value</span>
+          </div>
+          <div class="item" id="animate"></div>
+          <div class="item" id="hide"></div>
+        </div>
+      </div>
+    </div>
+    <script>
+      var p = new Progress("comp");
+
+      var G = (ID) => (document.getElementById(ID))
+
+      p.setValue(10);
+      G('value').value = "10";
+      G('value').addEventListener('input', e=>{
+        if(e.target.value){
+          p.setValue( e.target.value )
+        }
+      })
+
+      var anim = new checkComponent('animate'),
+          hid = new checkComponent('hide');
+
+      hid.value( p.getStatus('isHide') );
+      anim.value( p.getStatus('isAnimate') );
+
+      hid.setListener(function(e,v){
+        p.setMode('hidden' , v?false:true);
+      })
+
+      anim.setListener(function(e,v){
+        p.setMode('animated' , v?"yes":"no");
+      })
+    </script>
+  </body>
+</html>
